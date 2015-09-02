@@ -1,10 +1,10 @@
 module Kernel
   # For testing purposes. Never do this
-  def print(msg)
-    $output << msg
+  def print(msg = '')
+    ($output ||= []) << msg
   end
   def puts(msg = '')
-    $output << msg
+    ($output ||= []) << msg
   end
   # Oh god never do this
   def gets
