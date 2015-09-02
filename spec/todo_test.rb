@@ -1,8 +1,9 @@
-require 'test/unit'
+require 'minitest/autorun'
+require 'minitest/pride'
 require_relative '../lib/todo'
 require_relative './spec_helper'
 
-class TodoTest < Test::Unit::TestCase
+class TodoTest < MiniTest::Test
 
   def todo_setup
     $input, $output = [] # Reset all messages between tests
