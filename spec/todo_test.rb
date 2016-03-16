@@ -27,7 +27,7 @@ class TodoTest < MiniTest::Test
 
   def test_view_todos_prints_completed_header
     todo_setup # Given
-    @todo.view_todos # When
+    @todo.view_complete # When
     assert($output.include?("Completed"), "'Completed' was not printed") # Then
   end
 
@@ -41,29 +41,42 @@ class TodoTest < MiniTest::Test
     assert_equal("1) finish homework", $output[1], "The todo found in 'test_todos.csv' were not printed") # Then
   end
 
-  #def test_add_todo_prints_prompt
-  #  todo_setup # Given
-  #  @todo.add_todo
-  #  assert_equal("Name of Todo > ", $output.last, "The last message printed should have been the prompt")
-  #end
+  def test_add_todo_prints_prompt
+   todo_setup # Given
+   @todo.add_todo
+   assert_equal("Name of Todo > ", $output.last, "The last message printed should have been the prompt")
+  end
 
-  #def test_add_todo_creates_new_todo
-  #  todo_setup # Given
-  #  $input.push("make this test pass") # So we can test input (can't use gets in a test)
-  #  @todo.add_todo
-  #  assert_equal("make this test pass,no\n", @todo.todos[1].to_s, "The 2nd todo in todos should have been 'make this test pass'")
-  #end
+  def test_add_todo_creates_new_todo
+   todo_setup # Given
+   $input.push("make this test pass") # So we can test input (can't use gets in a test)
+   @todo.add_todo
+   assert_equal("make this test pass,no\n", @todo.todos[2].to_s, "The 3rd todo in todos should have been 'make this test pass'")
+  end
 
-  #def test_mark_todo_prints_prompt
-  #  todo_setup # Given
-  #  @todo.mark_todo
-  #  assert_equal("Which todo have you finished?", $output.last, "The last message was not asking what todo they have finished")
-  #end
+  def test_mark_todo_prints_prompt
+   todo_setup # Given
+   @todo.mark_todo
+   assert_equal("Which todo have you finished?", $output.last, "The last message was not asking what todo they have finished")
+  end
 
-  #def test_mark_todo_changes_todo
-  #  todo_setup # Given
-  #  $input.push('1')
-  #  @todo.mark_todo
-  #  assert_equal("finish homework,yes\n", @todo.todos[0].to_s, "The first todo in todos was not 'finish homework'")
-  #end
+  def test_mark_todo_changes_todo
+   todo_setup # Given
+   $input.push('1')
+   @todo.mark_todo
+   assert_equal("finish homework,yes\n", @todo.todos[0].to_s, "The first todo in todos was not 'finish homework'")
+  end
+
+  def test_view_todos #only displays incomplete test_view_todos
+    todo_setup
+    @todo.view_todos
+    refute($output.include?("2) adding an item,yes\n"), "'adding an item was printed")
+  end
+
+  def test_view_complete
+    todo_setup
+    @todo.view_complete
+    refute($output.include?("1) finish homework,no\n"), "finished homework was printed")
+  end
+
 end
