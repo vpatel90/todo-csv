@@ -53,15 +53,15 @@ class Todo
 
   def view_todos
     puts "Unfinished"
-    @todos.each_with_index do |todo, index|
-      puts "#{index + 1}) #{todo["name"]}" if todo["completed"] == "no"
+    @todos.select { |todo| todo["completed"] == "no" }.each_with_index do |todo, index|
+      puts "#{index + 1}) #{todo["name"]}"
     end
   end
 
   def view_complete
     puts "Completed"
-    @todos.each_with_index do |todo, index|
-      puts "#{index + 1}) #{todo["name"]}" if todo["completed"] == "yes"
+    @todos.select { |todo| todo["completed"] == "yes" }.each_with_index do |todo, index|
+      puts "#{index + 1}) #{todo["name"]}"
     end
   end
 
