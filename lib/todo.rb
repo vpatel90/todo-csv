@@ -42,18 +42,21 @@ class Todo
     num = get_input.to_i
     puts "How should I change it?"
     message = get_input.to_s
-    @todos[num - 1]["name"] = message
+    item = view_todos[num-1]
+    new_index = @todos.find_index(item)
+    @todos[new_index]["name"] = message
   end
 
   def delete_todo
     puts "What do you want to delete?"
     num = get_input.to_i
-    @todos.delete(num - 1)
+    item = view_todos[num-1]
+    @todos.delete(@todos.find_index(item))
   end
 
   def view_todos
     puts "Unfinished"
-    @todos.select { |todo| todo["completed"] == "no" }.each_with_index do |todo, index|
+    return @todos.select { |todo| todo["completed"] == "no" }.each_with_index do |todo, index|
       puts "#{index + 1}) #{todo["name"]}"
     end
   end
@@ -73,7 +76,9 @@ class Todo
   def mark_todo
     print "Which todo have you finished?"
     num = get_input.to_i
-    @todos[num - 1]["completed"] = "yes"
+    item = view_todos[num-1]
+    new_index = @todos.find_index(item)
+    @todos[new_index]["completed"] = "yes"
   end
 
   def todos

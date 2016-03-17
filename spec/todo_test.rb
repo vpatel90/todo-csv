@@ -57,7 +57,7 @@ class TodoTest < MiniTest::Test
   def test_mark_todo_prints_prompt
    todo_setup # Given
    @todo.mark_todo
-   assert_equal("Which todo have you finished?", $output.last, "The last message was not asking what todo they have finished")
+   assert($output.include?("Which todo have you finished?"), "The last message was not asking what todo they have finished")
   end
 
   def test_mark_todo_changes_todo
